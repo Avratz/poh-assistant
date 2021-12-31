@@ -17,6 +17,7 @@ const HomeScreen = ({ navigation }: StackScreenProps<RootStackParamList, 'HomeSc
   }
 
   const handleGenerate = () => {
+    if(address === '') return
     navigation.navigate('QRScreen', { address })
   }
 

@@ -3,12 +3,17 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import theme from '../theme'
 import { RootStackParamList } from '../types/navigation'
-import QRCode from 'react-native-qrcode-svg';
+import QRCode from 'react-native-qrcode-svg'
+import * as ScreenOrientation from 'expo-screen-orientation'
 
-const QRScreen = ({route}: StackScreenProps<RootStackParamList, 'QRScreen'>) => {
-
+const QRScreen = ({ route }: StackScreenProps<RootStackParamList, 'QRScreen'>) => {
   const { address } = route.params
-
+  React.useLayoutEffect(() => {
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE).then()
+    return () => {
+      ScreenOrientation.unlockAsync().then()
+    }
+  }, [])
   return (
     <View style={styles.container}>
       <QRCode
@@ -22,31 +27,23 @@ const QRScreen = ({route}: StackScreenProps<RootStackParamList, 'QRScreen'>) => 
   )
 }
 
-
 const styles = StyleSheet.create({
-  container:{
+  container: {
     width: '100%',
     height: '100%',
     backgroundColor: theme.colors.primary,
     padding: 32,
-    flex: 1,
-    alignItems: 'center',
-    paddingTop: 48
-  },  
-  qr: {
-    width: '100%',
-    height: '50%',
-    backgroundColor: theme.colors.secondary,
-    transform: [{ rotate: '90deg' }],
+    justifyContent: 'center',
+    paddingTop: 48,
   },
   address: {
+    width: '50%',
     fontSize: 45,
-    width: '100%',
     textAlign: 'left',
-    transform: [{ rotate: '90deg' }],
     fontWeight: '500',
-    margin: 5,
-    marginVertical: 20,
-  }
+    alignSelf: 'flex-end',
+    position: 'absolute',
+    right: 16,
+  },
 })
 export default QRScreen
