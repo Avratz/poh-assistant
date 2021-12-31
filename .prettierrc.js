@@ -1,0 +1,10 @@
+// .prettierrc.js
+
+module.exports = {
+  bracketSpacing: true,
+  singleQuote: true,
+  trailingComma: 'all',
+  printWidth: 100,
+  tabWidth: 2,
+  semi: false,
+};

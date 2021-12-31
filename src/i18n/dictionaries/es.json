@@ -1,0 +1,7 @@
+{
+	"home": {
+    "description": "Generá una imagen segura para mostrar la dirección de tu billetera en el video que vas a usar para registrarte en el registro",
+    "button": "Generar Imagen",
+    "inputPlaceholder": "Introduce la dirección de tu billetera"
+  }
+}

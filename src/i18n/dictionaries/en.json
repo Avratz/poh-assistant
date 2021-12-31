@@ -1,0 +1,7 @@
+{
+	"home": {
+    "description": "Generate a safe image for showing your wallet address when recording the video that you will use to send to the registry",
+    "button": "Generate Image",
+    "inputPlaceholder": "Enter your wallet address"
+  }
+}
