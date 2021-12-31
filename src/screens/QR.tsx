@@ -17,12 +17,17 @@ const QRScreen = ({ route }: StackScreenProps<RootStackParamList, 'QRScreen'>) =
   return (
     <View style={styles.container}>
       <QRCode
-        size={220}
+        size={200}
         value={address}
         color={theme.colors.black}
         backgroundColor={theme.colors.primary}
       />
-      <Text style={styles.address}>{address}</Text>
+      <Text 
+      numberOfLines={4}
+      adjustsFontSizeToFit
+      style={styles.address}>
+        {address}
+      </Text>
     </View>
   )
 }
@@ -32,18 +37,18 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     backgroundColor: theme.colors.primary,
-    padding: 32,
+    paddingHorizontal: 16,
     justifyContent: 'center',
-    paddingTop: 48,
+    alignItems: 'center',
+    margin: 'auto',
+    flexDirection: 'row',
   },
   address: {
-    width: '50%',
+    width: '60%',
     fontSize: 45,
     textAlign: 'left',
     fontWeight: '500',
-    alignSelf: 'flex-end',
-    position: 'absolute',
-    right: 16,
+    paddingLeft: 32,
   },
 })
 export default QRScreen
