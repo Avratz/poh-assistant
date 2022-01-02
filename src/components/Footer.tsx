@@ -1,5 +1,5 @@
 import { ImageBackground, StyleSheet, View } from 'react-native'
-import bgImg from '../../assets/bg.jpg'
+import bgImg from '../../assets/bg.png'
 
 const styles = StyleSheet.create({
   footer: {
@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 100,
+    zIndex: -1,
   },
   image: {
     flex: 1,

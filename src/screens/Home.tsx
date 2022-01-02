@@ -1,64 +1,77 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, Platform } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  KeyboardAvoidingView,
+  SafeAreaView,
+  TextStyle,
+} from 'react-native'
 import { StackScreenProps } from '@react-navigation/stack'
+import * as ScreenOrientation from 'expo-screen-orientation'
+import { useIsFocused } from '@react-navigation/native'
 
 import Footer from '../components/Footer'
+import Button from '../components/Button'
 
 import t from '../i18n'
 import { RootStackParamList } from '../types/navigation'
-import theme from '../theme'
-
+import { colors } from '../theme'
+import useAddress from '../hooks/useAddress'
 
 const HomeScreen = ({ navigation }: StackScreenProps<RootStackParamList, 'HomeScreen'>) => {
-  const [address, setAddres] = React.useState('')
+  const isFocused = useIsFocused()
+  const { address, error, onChangeAddress, handleGenerate, pasteAddress } = useAddress(navigation)
 
-  const onChangeAddress = (address: string) => {
-    setAddres(address)
-  }
-
-  const handleGenerate = () => {
-    if(address === '') return
-    navigation.navigate('QRScreen', { address })
-  }
+  React.useEffect(() => {
+    if (isFocused) {
+      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT).then()
+    }
+  }, [isFocused])
 
   return (
-    <KeyboardAvoidingView 
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={100}
-      style={styles.container}
-    >
-      <View style={styles.main}>
-        <Text style={styles.description}>{t('home.description')}</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeAddress}
-          value={address}
-          placeholder={t('home.inputPlaceholder')}
-        />
-        <TouchableOpacity style={styles.button} onPress={handleGenerate}>
-          <Text style={styles.buttonTxt}>{t('home.button')}</Text>
-        </TouchableOpacity>
-      </View>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView behavior="height" keyboardVerticalOffset={200} style={styles.container}>
+        <View style={styles.main}>
+          <Text style={styles.description}>{t('home.description')}</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeAddress}
+            value={address}
+            autoCompleteType='off'
+            autoCorrect={false}
+            clearButtonMode='always'
+            placeholder={t('home.inputPlaceholder')}
+          />
+          {error ? <Text style={styles.error}>{t('error.' + [error])}</Text> : null}
+          <Button onPress={pasteAddress} theme='secondary'>
+            {t('home.buttonPaste')}
+          </Button>
+          <Button onPress={handleGenerate} disabled={address === '' || error !== ''}>
+            {t('home.button')}
+          </Button>
+        </View>
+      </KeyboardAvoidingView>
       <Footer />
-    </KeyboardAvoidingView>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   main: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 85,
   },
   input: {
     width: '90%',
-    borderColor: theme.colors.grey[500],
-    backgroundColor: theme.colors.fakeWhite,
+    borderColor: colors.grey[500],
+    backgroundColor: colors.fakeWhite,
     borderWidth: 1,
     marginHorizontal: 16,
     marginVertical: 8,
@@ -73,18 +86,9 @@ const styles = StyleSheet.create({
     paddingVertical: 36,
     paddingHorizontal: 16,
   },
-  button: {
-    marginHorizontal: 16,
-    marginVertical: 8,
+  error: {
+    color: colors.error,
     padding: 16,
-    borderRadius: 32,
-    backgroundColor: theme.colors.primary,
-    width: '90%',
-  },
-  buttonTxt: {
-    fontSize: 18,
-    textAlign: 'center',
-    fontWeight: '500',
   },
 })
 

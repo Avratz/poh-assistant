@@ -1,10 +1,12 @@
 const theme = {
   colors: {
     primary: '#FFC700',
+    primaryLight: '#FFE8A2',
     secondary: '#008968',
     white: '#FFFFFF',
     black: '#000000',
     fakeWhite: '#FAFAFA',
+    error: '#FF0000',
     grey:{
       50: '#fafafa',
       100: '#f5f5f5',
@@ -19,5 +21,7 @@ const theme = {
     }
   }
 }
+
+export const colors = theme.colors
 
 export default theme

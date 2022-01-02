@@ -1,7 +1,12 @@
 {
 	"home": {
-    "description": "Generate a safe image for showing your wallet address when recording the video that you will use to send to the registry",
+    "description": "Generate a image for showing your wallet address when recording the video that you will use to send to the registry",
     "button": "Generate Image",
+    "buttonPaste": "Paste your address",
     "inputPlaceholder": "Enter your wallet address"
+  },
+  "error":{
+    "empty": "Your address must not be empty",
+    "invalid":  "Your address must be a valid Ethereum address"
   }
 }

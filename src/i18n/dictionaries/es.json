@@ -1,7 +1,12 @@
 {
 	"home": {
-    "description": "Generá una imagen segura para mostrar la dirección de tu billetera en el video que vas a usar para registrarte",
+    "description": "Generá una imagen para mostrar la dirección de tu billetera en el video que vas a usar para registrarte",
     "button": "Generar Imagen",
+    "buttonPaste": "Pegar tu dirección",
     "inputPlaceholder": "Introduce la dirección de tu billetera"
+  },
+  "error":{
+    "empty": "La dirección no puede estar vacía",
+    "invalid": "La dirección debe ser una dirección de Ethereum válida"
   }
 }
